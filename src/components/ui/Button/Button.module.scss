@@ -1,0 +1,31 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  padding: 0 20px;
+  background: linear-gradient(135deg, #007bff, #0056b3); // Градиентный фон
+  color: #fff; // Белый текст
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px; // Закругленные углы
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); // Легкая тень
+
+  &:hover {
+    background: linear-gradient(135deg, #0056b3, #004494);
+    transform: scale(1.05); // Легкое увеличение при наведении
+  }
+
+  &:active {
+    transform: scale(0.98); // Легкое уменьшение при нажатии
+  }
+
+  &:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}

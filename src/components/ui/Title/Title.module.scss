@@ -1,0 +1,55 @@
+.title {
+  display: inline-block;
+  text-align: center;
+  font-weight: 700;
+  background: linear-gradient(135deg, #007bff, #0056b3); // Синий градиент
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; // Делаем текст градиентным
+  transition: all 0.3s ease-in-out;
+
+  &.h1 {
+    font-size: 32px;
+    text-transform: uppercase;
+  }
+
+  &.h2 {
+    font-size: 28px;
+  }
+
+  &.h3 {
+    font-size: 24px;
+  }
+
+  &.p {
+    font-size: 18px;
+    font-weight: 400;
+    color: #444;
+    -webkit-text-fill-color: initial; // Обычный цвет текста для параграфов
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  @media (max-width: 768px) {
+    &.h1 {
+      font-size: 28px;
+    }
+
+    &.h2 {
+      font-size: 24px;
+    }
+
+    &.h3 {
+      font-size: 20px;
+    }
+
+    &.p {
+      font-size: 16px;
+    }
+  }
+}
