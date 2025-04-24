@@ -155,13 +155,23 @@ export default function ScoringQuestionnaire() {
         const d = pi.map(value => value / (sumPi || 1));
 
         // Calculate weights
-        const weights = matrixData.matrix.map((row, rowIndex) => {
-            return row.reduce((sum, value, colIndex) => {
+        // Сначала нормализуем матрицу
+        const normalizedMatrix = matrixData.matrix.map(row =>
+            row.map((value, colIndex) => {
                 const omegaVal = omega[colIndex] || 1;
-                const dVal = d[colIndex] || 0;
-                return sum + ((value / omegaVal) * dVal);
+                return value / omegaVal;
+            })
+        );
+
+// Теперь считаем веса
+        const weights = normalizedMatrix.map((row, rowIndex) => {
+            return row.reduce((sum, normVal, colIndex) => {
+                const pVal = matrixData.pMatrix[colIndex][0] || 0;
+                return sum + normVal * pVal;
             }, 0);
         });
+
+
 
         // Calculate final score
         const s = weights.reduce((sum, weight, index) => {
@@ -336,45 +346,51 @@ export default function ScoringQuestionnaire() {
                     <h2>Արդյունքներ</h2>
                     {method === 'a' ? (
                         <>
-                            <p>Ընդհանուր գնահատական: {result.score}</p>
-                            <p>Վարկի չափը: {result.creditAmount}</p>
+                            <p>Ընդհանուր գնահատական (բալեր): {result.score}</p>
+                            <p>Վարկի առաջարկվող չափը: {result.creditAmount}</p>
                         </>
                     ) : (
                         <>
-                            <h3>Օմեգա (սյուների գումարները)</h3>
-                            <p>{result.omega.join(', ')}</p>
+                            <h3>Քայլ 1. Օմեգա արժեքներ (սյուների գումար)</h3>
+                            <p>Հաշվվում է մատրիցայի յուրաքանչյուր սյան արժեքների գումարը՝ նորմալացման համար։</p>
+                            <p>{result.omega ? result.omega.join(', ') : "Օմեգա չկա"}</p>
 
-                            <h3>Նորմալացված մատրիցա</h3>
+                            <h3>Քայլ 2. Նորմալացված մատրիցա</h3>
+                            <p>Յուրաքանչյուր արժեք բաժանվում է համապատասխան սյան ընդհանուր գումարի վրա՝ համեմատելի դարձնելու համար։</p>
                             <div className={styles.normalizedMatrix}>
                                 {matrixData.matrix.map((row, rowIndex) => (
                                     <div key={`n-row-${rowIndex}`} className={styles.matrixRow}>
                                         {row.map((value, colIndex) => (
                                             <span key={`n-cell-${rowIndex}-${colIndex}`}>
-                        {(value / (result.omega[colIndex] || 1)).toFixed(2)}
-                      </span>
+                  {(value / (result.omega[colIndex] || 1)).toFixed(2)}
+                </span>
                                         ))}
                                     </div>
                                 ))}
                             </div>
 
-                            <h3>Pi (P մատրիցայի սյուների գումար)</h3>
-                            <p>{result.pi.join(', ')} (Գումար = {result.pi.reduce((a, b) => a + b, 0)})</p>
+                            <h3>Քայլ 3. Գումարված գնահատականներ (Pi)</h3>
+                            <p>Յուրաքանչյուր տարբերակի նորմալացված արժեքների գումարը։</p>
+                            <p>{result.pi.join(', ')} (Ընդհանուր = {result.pi.reduce((a, b) => a + b, 0)})</p>
 
-                            <h3>D (Pi նորմալացված)</h3>
+                            <h3>Քայլ 4. Նորմալացված գնահատականներ (D)</h3>
+                            <p>Pi արժեքները բաժանվում են իրենց ընդհանուր գումարի վրա՝ տոկոսային ներկայացման համար։</p>
                             <p>{result.d.map(v => v.toFixed(2)).join(', ')}</p>
 
-                            <h3>Քաշային գործակիցներ (W)</h3>
+                            <h3>Քայլ 5. Քաշային գործակիցներ (W)</h3>
+                            <p>Արտահայտում է՝ որքան կարևոր է տվյալ չափանիշը՝ ընդհանուր գնահատականի համար։</p>
                             {result.weights.map((weight, index) => (
-                                <p key={`weight-${index}`}>W{index + 1} = {weight.toFixed(2)}</p>
+                                <p key={`weight-${index}`}>Չափանիշ {index + 1}-ի քաշային գործակիցը: W{index + 1} = {weight.toFixed(2)}</p>
                             ))}
 
                             <h3>Վերջնական արդյունք</h3>
-                            <p>S = {result.score.toFixed(2)}</p>
-                            <p>Վարկի չափը: {result.creditAmount}</p>
+                            <p>Ընդհանուր գնահատական S = {result.score.toFixed(2)} (հաշվվում է՝ D * W)</p>
+                            <p>Առաջարկվող վարկի չափը: {result.creditAmount}</p>
                         </>
                     )}
                 </div>
             )}
+
         </div>
     );
 }
