@@ -7,7 +7,7 @@ import Title from "@/components/ui/Title/Title";
 const Home = () => {
     const arr = [
         { id: 1, text: "Վարկային պորտֆելի ձևավորում", link: "/creditportfolioformation" },
-        { id: 2, text: "Վարկունակության վերլուծություն", link: "/creditworthinessanalysis" },
+        { id: 2, text: "Վարկարժանության վերլուծություն", link: "/creditworthinessanalysis" },
     ];
 
     const router = useRouter();
@@ -19,7 +19,7 @@ const Home = () => {
     return (
         <div className={styles.container}>
             <Title as="h2">
-                Բանկի վարկային պորտֆելի ձևավորման և փոխառուի վարկունակության վերլուծության ավտոմացատացումը
+                Բանկի վարկային պորտֆելի ձևավորման և փոխառուի վարկարժանության վերլուծության ավտոմացատացումը
             </Title>
             <div className={styles.containerButton}>
                 {arr.map(({ id, text, link }) => (

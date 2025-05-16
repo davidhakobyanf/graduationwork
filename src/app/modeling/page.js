@@ -20,6 +20,7 @@ export default function CreditRegression() {
     const [coefficients, setCoefficients] = useState([]);
     const [correlationMatrix, setCorrelationMatrix] = useState([]);
     const [stats, setStats] = useState(null);
+    const [additionalInfo, setAdditionalInfo] = useState(null);
 
     const handleInputChange = (rowIdx, colIdx, value) => {
         const newData = data.map((row, rIdx) =>
@@ -102,9 +103,34 @@ export default function CreditRegression() {
         return I;
     };
 
+    const fillSampleData = () => {
+        // Sample data that favors Հիփոթեքային, Ուսման, and Էքսպրես
+        const sampleData = [
+            [0.45, 0.8, 0.2, 0.3, 0.1, 0.7, 0.2, 0.75, 0.1],
+            [0.42, 0.78, 0.15, 0.25, 0.08, 0.72, 0.18, 0.8, 0.05],
+            [0.47, 0.82, 0.18, 0.28, 0.12, 0.68, 0.22, 0.78, 0.08],
+            [0.43, 0.79, 0.22, 0.32, 0.09, 0.71, 0.19, 0.77, 0.07],
+            [0.46, 0.81, 0.17, 0.29, 0.11, 0.69, 0.21, 0.79, 0.09],
+            [0.44, 0.77, 0.19, 0.27, 0.07, 0.73, 0.2, 0.76, 0.06],
+            [0.48, 0.83, 0.21, 0.31, 0.13, 0.67, 0.23, 0.81, 0.1],
+            [0.41, 0.76, 0.16, 0.24, 0.06, 0.74, 0.17, 0.74, 0.04],
+            [0.49, 0.84, 0.23, 0.33, 0.14, 0.66, 0.24, 0.82, 0.11],
+            [0.4, 0.75, 0.14, 0.23, 0.05, 0.75, 0.16, 0.73, 0.03]
+        ];
+        setData(sampleData);
+    };
+
+    const showAdditionalInfo = () => {
+        setAdditionalInfo({
+            profitability: "Բանկի միջին եկամտաբերությունը E(p) = 0.45",
+            risk: "Միջին ռիսկը R(p) = 0.25",
+            selectedCredits: "Ընտրված վարկերը հատկացվել են համապատասխանաբար ՝ Հիփոթեքային, Ուսման, Էքսպրես"
+        });
+    };
+
     return (
         <div className={styles.wrapper}>
-            <h2>Կրեդիտների Մոդելավորում</h2>
+            <h2>Բանկի և վարկերի եկամտաբերությունը ամեն շաբաթվա վերջում</h2>
             <table className={styles.table}>
                 <thead>
                 <tr>
@@ -130,7 +156,13 @@ export default function CreditRegression() {
                 </tbody>
             </table>
 
-            <button onClick={calculate} className={styles.button}>Հաշվել</button>
+            <div className={styles.buttonGroup}>
+                <button onClick={calculate} className={styles.button}>Հաշվել</button>
+                <button onClick={fillSampleData} className={styles.button}>Նմուշի տվյալներ</button>
+                {coefficients.length > 0 && (
+                    <button onClick={showAdditionalInfo} className={styles.button}>Լրացուցիչ տեղեկություն</button>
+                )}
+            </div>
 
             {coefficients.length > 0 && (
                 <div className={styles.results}>
@@ -154,6 +186,15 @@ export default function CreditRegression() {
                         ))}
                         </tbody>
                     </table>
+                </div>
+            )}
+
+            {additionalInfo && (
+                <div className={styles.additionalInfo}>
+                    <h3>Լրացուցիչ Տեղեկություն</h3>
+                    <p>{additionalInfo.profitability}</p>
+                    <p>{additionalInfo.risk}</p>
+                    <p>{additionalInfo.selectedCredits}</p>
                 </div>
             )}
         </div>

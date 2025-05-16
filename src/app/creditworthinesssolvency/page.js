@@ -105,7 +105,7 @@ const CreditworthinessBySolvency = ({ onBack }) => {
 
     return (
         <div className={styles.container}>
-            <h1 className={styles.title}>Վարկունակության գնահատում վճարունակության հիման վրա</h1>
+            <h1 className={styles.title}>Վարկարժանության գնահատում վճարունակության հիման վրա</h1>
 
             <div className={styles.tabs}>
                 <button

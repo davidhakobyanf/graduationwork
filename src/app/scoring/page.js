@@ -85,7 +85,7 @@ const questions = [
 const scoringMethods = [
     {
         id: 'a',
-        label: 'ա) վարկունակության գնահատումը 29-43 բալանոց համակարգով։',
+        label: 'ա) վարկարժանություն գնահատումը 29-43 բալանոց համակարգով։',
         ranges: [
             { min: 29, max: 30, amount: '500$' },
             { min: 31, max: 33, amount: '1000$' },
@@ -94,24 +94,12 @@ const scoringMethods = [
             { min: 39, max: 40, amount: '5000$' },
             { min: 41, max: 43, amount: '8000$' }
         ]
-    },
-    {
-        id: 'b',
-        label: 'բ) վարկունակության գնահատումը 410-610 բալանոց համակարգով։',
-        ranges: [
-            { min: 410, max: 430, amount: '500$' },
-            { min: 431, max: 470, amount: '1000$' },
-            { min: 471, max: 510, amount: '2500$' },
-            { min: 511, max: 540, amount: '3500$' },
-            { min: 541, max: 570, amount: '5000$' },
-            { min: 571, max: 610, amount: '8000$' }
-        ]
     }
 ];
 
 export default function ScoringQuestionnaire() {
     const [answers, setAnswers] = useState({});
-    const [method, setMethod] = useState(null);
+    const [method, setMethod] = useState('a');
     const [result, setResult] = useState(null);
     const [matrixData, setMatrixData] = useState({
         rows: 0,
@@ -233,7 +221,7 @@ export default function ScoringQuestionnaire() {
         <div className={styles.container}>
             <Head>
                 <title>Սքորինգային հարցաշար</title>
-                <meta name="description" content="Վարկունակության գնահատման համակարգ" />
+                <meta name="description" content="Վարկարժանության գնահատման համակարգ" />
             </Head>
 
             <h1 className={styles.title}>----------Սքորինգային հարցաշար----------</h1>
@@ -260,23 +248,22 @@ export default function ScoringQuestionnaire() {
                 ))}
             </div>
 
-            <div className={styles.methodSelection}>
-                <h2>Ընտրեք գնահատման մեթոդը</h2>
-                <div className={styles.options}>
-                    {scoringMethods.map(methodItem => (
-                        <label key={methodItem.id}>
-                            <input
-                                type="radio"
-                                name="method"
-                                value={methodItem.id}
-                                onChange={() => setMethod(methodItem.id)}
-                                checked={method === methodItem.id}
-                            />
-                            {methodItem.label}
-                        </label>
-                    ))}
-                </div>
-            </div>
+            {/*<div className={styles.methodSelection}>*/}
+            {/*    <div className={styles.options}>*/}
+            {/*        {scoringMethods.map(methodItem => (*/}
+            {/*            <label key={methodItem.id}>*/}
+            {/*                <input*/}
+            {/*                    type="radio"*/}
+            {/*                    name="method"*/}
+            {/*                    value={methodItem.id}*/}
+            {/*                    onChange={() => setMethod(methodItem.id)}*/}
+            {/*                    checked={method === methodItem.id}*/}
+            {/*                />*/}
+            {/*                {methodItem.label}*/}
+            {/*            </label>*/}
+            {/*        ))}*/}
+            {/*    </div>*/}
+            {/*</div>*/}
 
             {method === 'b' && (
                 <div className={styles.matrixInput}>

@@ -163,9 +163,9 @@ export default function FinancialIndicators() {
             <div className={styles.legend}>
                 <h3>Դասերի բացատրություն</h3>
                 <ul>
-                    <li className={styles.classOne}>1 Դաս – Բարձր վարկունակություն</li>
-                    <li className={styles.classTwo}>2 Դաս – Միջին վարկունակություն</li>
-                    <li className={styles.classThree}>3 Դաս – Ցածր վարկունակություն</li>
+                    <li className={styles.classOne}>1 Դաս – Բարձր վարկարժանություն</li>
+                    <li className={styles.classTwo}>2 Դաս – Միջին վարկարժանություն</li>
+                    <li className={styles.classThree}>3 Դաս – Ցածր վարկարժանություն</li>
                 </ul>
             </div>
         </div>

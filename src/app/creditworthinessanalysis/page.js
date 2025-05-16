@@ -8,7 +8,7 @@ const CreditworthinessAnalysis = () => {
     const arr = [
         { id: 1, text: "Սքորինգ", link: "/scoring" },
         { id: 2, text: "Ռեյթինգային մեթոդ", link: "/ratingmethod" },
-        { id: 3, text: "Վարկունակություն վճարունակությամբ", link: "/creditworthinesssolvency" },
+        { id: 3, text: "Վարկարժանությամբ վճարունակությամբ", link: "/creditworthinesssolvency" },
     ];
 
     const router = useRouter();
